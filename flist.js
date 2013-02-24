@@ -1,7 +1,3 @@
-/*
- * flist.js
- */
- 
 /**
  * @constructor
  * Initializes an FList filter list on an unordered list DOM element.
@@ -11,6 +7,7 @@
 function FList( list ) {
   this.list = list;
   this.mtime = 5;
+  this.textQuery = "div";
   this.list.css({"overflow" : "hidden"});
   
   // Wrap each list element's contents with a div to use to restore height
@@ -29,9 +26,9 @@ jQuery.expr[':'].Contains = function(a,i,m){
  * Filter the filter list by a given filter string, with animations.
  * @param filter_string String to filter the list by
  */
-FList.prototype.filter = function( filter_string ) {
+FList.prototype.filter = function( query ) {
   // Hide unmatched elements
-  var elements = this.list.find( "a:not(:Contains('" + filter_string + "'))" ).closest("li");
+  var elements = this.list.find(this.textQuery).filter(this.selector(false, query)).closest("li");
   for( var i = 0; i < elements.length; i++ ) {
     if( this.hasHiding( $(elements.get(i)) ) ) continue;
     $(elements.get(i)).removeClass().addClass("hide");
@@ -39,12 +36,42 @@ FList.prototype.filter = function( filter_string ) {
   }
   
   // Show matched elements
-  elements = this.list.find( "a:Contains('" + filter_string + "')" ).closest("li");
+  elements = this.list.find(this.textQuery).filter(this.selector(true, query)).closest("li");
   for( var i = 0; i < elements.length; i++ ) {
-    if( this.hasShowing( $(elements.get(i)) ) ) continue;   
+    if( this.hasShowing( $(elements.get(i)) ) ) continue;
     $(elements.get(i)).removeClass().addClass("show");
     setTimeout( this.showElement( $(elements.get(i)) ), i * this.mtime );
   }
+}
+
+/**
+ * @method selector
+ * Constructs a function to test a DOM element by the filter query.
+ * @param positive (Boolean) True if a positive match should indicate a true return value,
+ *                           false if a positive match should indicate a false return value.
+ * @param query (String) Query to test the DOM Element on
+ * @return (function) Function to test a DOM Element by the query, modifying the return
+ *                    value by whether or not this should be a "positive" function
+ */
+FList.prototype.selector = function( positive, query ) {
+  var flist_this = this;
+  return function( index ) {
+    var pos_select = flist_this.positiveSelector(this, index, query);
+    if( positive ) return pos_select;
+    else return !pos_select;
+  }
+}
+
+/**
+ * @method positiveSelector
+ * Determines if a given element is positively selected by the filter query.
+ * @param el (HTMLElement) The element to test for positivity
+ * @param index (Integer) Index of the element in the filter list
+ * @param query (String) Query to test the given element on
+ * @return (Boolean) True if the element matches the query, false otherwise
+ */
+FList.prototype.positiveSelector = function( el, index, query ) {
+  return $(el).is( ":Contains('" + query + "')" );
 }
 
 /**
