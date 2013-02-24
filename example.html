@@ -1,0 +1,119 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+  <title>Filter List Example</title>
+  
+  <!-- Scripts -->
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+  <script src="flist.js"></script>
+  <script src="example.js"></script>
+  <style>
+    body {
+      background:#fff
+      font-size:13px;
+    }
+    #wrap {
+      position:relative;
+      width:220px;
+      margin:50px auto 0;
+    }
+    #header{position:relative;line-height:1em;}
+    .filterform {
+      width:220px;
+      font-size:12px;
+      display:block;
+    }
+    .filterform input {
+      -moz-border-radius:5px;
+      border-radius:5px;
+      -webkit-border-radius:5px;
+    }
+    li {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+   </style>
+  <input id="input"></input>
+</head>
+<body>
+  <div>
+    <ul id="flist">
+      <li><a href="/wiki/Apple" title="Apple">Apple</a></li>
+      <li><a href="/wiki/Apricot" title="Apricot">Apricot</a></li>
+      <li><a href="/wiki/Avocado" title="Avocado">Avocado</a></li>
+      <li><a href="/wiki/Banana" title="Banana">Banana</a></li>
+      <li><a href="/wiki/Breadfruit" title="Breadfruit">Breadfruit</a></li>
+      <li><a href="/wiki/Bilberry" title="Bilberry">Bilberry</a></li>
+      <li><a href="/wiki/Blackberry" title="Blackberry">Blackberry</a></li>
+      <li><a href="/wiki/Blackcurrant" title="Blackcurrant">Blackcurrant</a></li>
+      <li><a href="/wiki/Blueberry" title="Blueberry">Blueberry</a></li>
+      <li><a href="/wiki/Currant" title="Currant">Currant</a></li>
+      <li><a href="/wiki/Cherry" title="Cherry">Cherry</a></li>
+      <li><a href="/wiki/Cherimoya" title="Cherimoya">Cherimoya</a></li>
+      <li><a href="/wiki/Clementine" title="Clementine">Clementine</a></li>
+      <li><a href="/wiki/Cloudberry" title="Cloudberry">Cloudberry</a></li>
+      <li><a href="/wiki/Coconut" title="Coconut" class="mw-redirect">Coconut</a></li>
+      <li><a href="/wiki/Date" title="Date">Date</a></li>
+      <li><a href="/wiki/Damson" title="Damson">Damson</a></li>
+      <li><a href="/wiki/Dragonfruit" title="Dragonfruit">Dragonfruit</a></li>
+      <li><a href="/wiki/Durian" title="Durian">Durian</a></li>
+      <li><a href="/wiki/Eggplant" title="Eggplant" class="mw-redirect">Eggplant</a></li>
+      <li><a href="/wiki/Elderberry" title="Elderberry">Elderberry</a></li>
+      <li><a href="/wiki/Feijoa" title="Feijoa">Feijoa</a></li>
+      <li><a href="/wiki/Common_fig" title="Common fig" class="mw-redirect">Fig</a></li>
+      <li><a href="/wiki/Gooseberry" title="Gooseberry">Gooseberry</a></li>
+      <li><a href="/wiki/Grape" title="Grape">Grape</a></li>
+      <li><a href="/wiki/Grapefruit" title="Grapefruit">Grapefruit</a></li>
+      <li><a href="/wiki/Guava" title="Guava">Guava</a></li>
+      <li><a href="/wiki/Huckleberry" title="Huckleberry">Huckleberry</a></li>
+      <li><a href="/wiki/Honeydew" title="Honeydew">Honeydew</a></li>
+      <li><a href="/wiki/Jackfruit" title="Jackfruit">Jackfruit</a></li>
+      <li><a href="/w/index.php?title=Jettamelon&amp;action=edit&amp;redlink=1" class="new" title="Jettamelon (not yet started)">Jettamelon</a></li>
+      <li><a href="/wiki/Jambul" title="Jambul">Jambul</a></li>
+      <li><a href="/wiki/Jujube" title="Jujube" class="mw-redirect">Jujube</a></li>
+      <li><a href="/wiki/Kiwi_fruit" title="Kiwi fruit" class="mw-redirect">Kiwi fruit</a></li>
+      <li><a href="/wiki/Kumquat" title="Kumquat">Kumquat</a></li>
+      <li><a href="/wiki/Legume" title="Legume">Legume</a></li>
+      <li><a href="/wiki/Lemon" title="Lemon">Lemon</a></li>
+      <li><a href="/wiki/Lime" title="Lime">Lime</a></li>
+      <li><a href="/wiki/Loquat" title="Loquat">Loquat</a></li>
+      <li><a href="/wiki/Lychee" title="Lychee">Lychee</a></li>
+      <li><a href="/wiki/Mandarine" title="Mandarine" class="mw-redirect">Mandarine</a></li>
+      <li><a href="/wiki/Mango" title="Mango">Mango</a></li>
+      <li><a href="/wiki/Melon" title="Melon">Melon</a></li>
+      <li><a href="/w/index.php?title=Canary_melon&amp;action=edit&amp;redlink=1" class="new" title="Canary melon (not yet started)">Canary melon</a></li>
+      <li><a href="/wiki/Cantaloupe" title="Cantaloupe">Cantaloupe</a></li>
+      <li><a href="/wiki/Honeydew_(melon)" title="Honeydew (melon)">Honeydew</a></li>
+      <li><a href="/wiki/Watermelon" title="Watermelon">Watermelon</a></li>
+      <li><a href="/wiki/Rock_melon" title="Rock melon" class="mw-redirect">Rock melon</a></li>
+      <li><a href="/wiki/Nectarine" title="Nectarine" class="mw-redirect">Nectarine</a></li>
+      <li><a href="/wiki/Nut_(fruit)" title="Nut (fruit)">Nut</a></li>
+      <li><a href="/wiki/Orange" title="Orange">Orange</a></li>
+      <li><a href="/wiki/Peach" title="Peach">Peach</a></li>
+      <li><a href="/wiki/Pear" title="Pear">Pear</a></li>
+      <li><a href="/wiki/Persimmon" title="Persimmon">Persimmon</a></li>
+      <li><a href="/wiki/Williams_pear" title="Williams pear">Williams pear</a> or <a href="/wiki/Bartlett_pear" title="Bartlett pear" class="mw-redirect">Bartlett pear</a></li>
+      <li><a href="/w/index.php?title=Physalis&amp;action=edit&amp;redlink=1" class="new" title="Physalis (not yet started)">Physalis</a></li>
+      <li><a href="/wiki/Plum" title="Plum">Plum</a>/prune (dried plum)</li>
+      <li><a href="/wiki/Pineapple" title="Pineapple">Pineapple</a></li>
+      <li><a href="/wiki/Pomegranate" title="Pomegranate">Pomegranate</a></li>
+      <li><a href="/wiki/Pomelo" title="Pomelo">Pomelo</a></li>
+      <li><a href="/wiki/Purple_Mangosteen" title="Purple Mangosteen">Purple Mangosteen</a></li>
+      <li><a href="/wiki/Raspberry" title="Raspberry">Raspberry</a></li>
+      <li><a href="/wiki/Rambutan" title="Rambutan">Rambutan</a></li>
+      <li><a href="/wiki/Redcurrant" title="Redcurrant">Redcurrant</a></li>
+      <li><a href="/w/index.php?title=Salal&amp;action=edit&amp;redlink=1" class="new" title="Salal (not yet started)">Salal</a> berry</li>
+      <li><a href="/wiki/Satsuma" title="Satsuma">Satsuma</a></li>
+      <li><a href="/wiki/Star_fruit" title="Star fruit" class="mw-redirect">Star fruit</a></li>
+      <li><a href="/wiki/Strawberry" title="Strawberry" class="mw-redirect">Strawberry</a></li>
+      <li><a href="/wiki/Tangerine" title="Tangerine">Tangerine</a></li>
+      <li><a href="/wiki/Tomato" title="Tomato">Tomato</a></li>
+      <li><a href="/wiki/Ugli" title="Ugli" class="mw-redirect">Ugli fruit</a></li>
+      <li>Watermelon--see <a href="/wiki/Melon" title="Melon">melon</a></li>
+    </ul>
+  </div>
+</body>
+
+</html>
