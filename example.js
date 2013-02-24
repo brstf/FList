@@ -5,7 +5,5 @@ $(document).ready( function() {
     filter_list.filter( $(this).val() );
   }).keyup( function ( ev ) {
     $(this).change();
-  }).keypress( function( ev ) {
-    console.log( ev.which );
   });
 });
