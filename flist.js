@@ -1,4 +1,8 @@
 /**
+ * FList is a filterable list created over an HTML unordered list that allows
+ * extremely simple filtering with animation support.
+ *
+ * @class FList
  * @constructor
  * Initializes an FList filter list on an unordered list DOM element.
  * @requires jQuery
@@ -22,8 +26,8 @@ jQuery.expr[':'].Contains = function(a,i,m){
 };
 
 /**
- * @method filter
  * Filter the filter list by a given filter string, with animations.
+ * @method filter
  * @param filter_string String to filter the list by
  */
 FList.prototype.filter = function( query ) {
@@ -45,8 +49,8 @@ FList.prototype.filter = function( query ) {
 }
 
 /**
- * @method selector
  * Constructs a function to test a DOM element by the filter query.
+ * @method selector
  * @param positive (Boolean) True if a positive match should indicate a true return value,
  *                           false if a positive match should indicate a false return value.
  * @param query (String) Query to test the DOM Element on
@@ -63,8 +67,8 @@ FList.prototype.selector = function( positive, query ) {
 }
 
 /**
- * @method positiveSelector
  * Determines if a given element is positively selected by the filter query.
+ * @method positiveSelector
  * @param el (HTMLElement) The element to test for positivity
  * @param index (Integer) Index of the element in the filter list
  * @param query (String) Query to test the given element on
@@ -75,8 +79,8 @@ FList.prototype.positiveSelector = function( el, index, query ) {
 }
 
 /**
- * @method getVisibleElements
  * Retrieves a jQuery list of all visible elements depending on the filter.
+ * @method getVisibleElements
  * @return (jQuery) List of visible elements in the list
  */
 FList.prototype.getVisibleElements = function() {
@@ -84,8 +88,8 @@ FList.prototype.getVisibleElements = function() {
 }
 
 /**
- * @method getInvisibleElements
  * Retrieves a jQuery list of all invisible/hidden elements depending on the filter.
+ * @method getInvisibleElements
  * @return (jQuery) List of invisible/hidden elements in the list
  */
 FList.prototype.getInvisibleElements = function() {
@@ -93,8 +97,8 @@ FList.prototype.getInvisibleElements = function() {
 }
 
 /**
- * @method hasShowing
  * Function to check if an element has one of the "showing" classes.
+ * @method hasShowing
  * @param element (jQuery) List element to check the classes of
  * @return (Boolean) True if element has the class "show" or "showing", false otherwise
  */
@@ -103,8 +107,8 @@ FList.prototype.hasShowing = function( element ) {
 }
 
 /**
- * @method hasHiding
  * Function to check if an element has one of the "hiding" classes.
+ * @method hasHiding
  * @param element (jQuery) List element to check the classes of
  * @return (Boolean) True if element has the class "hide" or "hiding", false otherwise
  */
@@ -113,11 +117,11 @@ FList.prototype.hasHiding = function( element ) {
 }
 
 /**
- * @method setAnimDelay
  * Function to set the delay (in milliseconds) between animations as elements are filtered
  * out of a list.  For example, if this is set to 5 ms, the first filtered out element
  * will immediately start its animation, the second one will start the animation in 5 ms,
  * the third in 10 ms, etc.
+ * @method setAnimDelay
  * @param dt Animation delay (in ms)
  */
 FList.prototype.setAnimDelay = function( dt ) {
@@ -125,10 +129,10 @@ FList.prototype.setAnimDelay = function( dt ) {
 }
 
 /**
- * @method hide
  * Hides a given jQuery element of the filter list.  Change this function to 
  * change animation behavior.  The replacing function must accept one parameter,
  * which is the jQuery list element to hide.
+ * @method hide
  * @param element (jQuery) List element to show
  */
 FList.prototype.hide = function( element ) {
@@ -144,8 +148,8 @@ FList.prototype.hide = function( element ) {
 }
 
 /**
- * @method hideElement
  * Create a function to hide an element.
+ * @method hideElement
  * @param list_element jQuery list element to hide
  * @return (function) A function that hides the list element when called
  */
@@ -163,10 +167,10 @@ FList.prototype.hideElement = function( list_element ) {
 }
 
 /**
- * @method show
  * Shows a given jQuery element of the filter list.  Change this function to 
  * change animation behavior.  The replacing function must accept one parameter,
  * which is the jQuery list element to show.
+ * @method show
  * @param element List element to show
  */
 FList.prototype.show = function( element ) {
@@ -183,8 +187,8 @@ FList.prototype.show = function( element ) {
 }
 
 /**
- * @method showElement
  * Create a function to show an element.
+ * @method showElement
  * @param list_element jQuery list element to show
  * @return (function) A function that shows the list element when called
  */
