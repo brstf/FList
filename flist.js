@@ -88,7 +88,7 @@ FList.prototype.getVisibleElements = function() {
  * Retrieves a jQuery list of all invisible/hidden elements depending on the filter.
  * @return (jQuery) List of invisible/hidden elements in the list
  */
-FList.prototype.getInisibleElements = function() {
+FList.prototype.getInvisibleElements = function() {
   return this.list.find(".hide, .hidden");
 }
 
@@ -110,6 +110,18 @@ FList.prototype.hasShowing = function( element ) {
  */
 FList.prototype.hasHiding = function( element ) {
   return element.hasClass("hide") || element.hasClass("hiding");
+}
+
+/**
+ * @method setAnimDelay
+ * Function to set the delay (in milliseconds) between animations as elements are filtered
+ * out of a list.  For example, if this is set to 5 ms, the first filtered out element
+ * will immediately start its animation, the second one will start the animation in 5 ms,
+ * the third in 10 ms, etc.
+ * @param dt Animation delay (in ms)
+ */
+FList.prototype.setAnimDelay = function( dt ) {
+  this.mtime = dt;
 }
 
 /**
