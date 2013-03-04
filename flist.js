@@ -13,9 +13,10 @@ function FList( list ) {
   this.mtime = 5;
   this.textQuery = "div";
   this.list.css({"overflow" : "hidden"});
+  this.timeout = null;
   
   // Wrap each list element's contents with a div to use to restore height
-  $(list.find("li")).wrapInner('<div />').addClass("showing");
+  $(list.find("li")).wrapInner('<div />').data('FList.show', true);
   var child_height = $($(list.find("li")).find("div")).children().outerHeight();
   $($(list.find("li")).find("div")).css({ "max-height" : child_height });
 }
@@ -31,21 +32,22 @@ jQuery.expr[':'].Contains = function(a,i,m){
  * @param filter_string String to filter the list by
  */
 FList.prototype.filter = function( query ) {
-  // Hide unmatched elements
-  var elements = this.list.find(this.textQuery).filter(this.selector(false, query)).closest("li");
-  for( var i = 0; i < elements.length; i++ ) {
-    if( this.hasHiding( $(elements.get(i)) ) ) continue;
-    $(elements.get(i)).removeClass().addClass("hide");
-    setTimeout( this.hideElement( $(elements.get(i)) ), i * this.mtime );
+  // Show matched elements
+  clearTimeout( this.timeout );
+  var updateFunction = function(){};
+  var elements = this.list.find(this.textQuery).filter(this.selector(true, query)).closest("li");
+  for( var i = elements.length - 1; i >= 0; i-- ) {
+    $(elements.get(i)).data('FList.show', true);
+    updateFunction = this.update( updateFunction, $(elements.get(i)) );
   }
   
-  // Show matched elements
-  elements = this.list.find(this.textQuery).filter(this.selector(true, query)).closest("li");
-  for( var i = 0; i < elements.length; i++ ) {
-    if( this.hasShowing( $(elements.get(i)) ) ) continue;
-    $(elements.get(i)).removeClass().addClass("show");
-    setTimeout( this.showElement( $(elements.get(i)) ), i * this.mtime );
+  // Hide unmatched elements
+  elements = this.list.find(this.textQuery).filter(this.selector(false, query)).closest("li");
+  for( var i = elements.length - 1; i>= 0; i-- ) {
+    $(elements.get(i)).data('FList.show', false);
+    updateFunction = this.update( updateFunction, $(elements.get(i)) );
   }
+  updateFunction();
 }
 
 /**
@@ -97,26 +99,6 @@ FList.prototype.getInvisibleElements = function() {
 }
 
 /**
- * Function to check if an element has one of the "showing" classes.
- * @method hasShowing
- * @param element (jQuery) List element to check the classes of
- * @return (Boolean) True if element has the class "show" or "showing", false otherwise
- */
-FList.prototype.hasShowing = function( element ) {
-  return element.hasClass("show") || element.hasClass("showing");
-}
-
-/**
- * Function to check if an element has one of the "hiding" classes.
- * @method hasHiding
- * @param element (jQuery) List element to check the classes of
- * @return (Boolean) True if element has the class "hide" or "hiding", false otherwise
- */
-FList.prototype.hasHiding = function( element ) {
-  return element.hasClass("hide") || element.hasClass("hiding");
-}
-
-/**
  * Function to set the delay (in milliseconds) between animations as elements are filtered
  * out of a list.  For example, if this is set to 5 ms, the first filtered out element
  * will immediately start its animation, the second one will start the animation in 5 ms,
@@ -137,33 +119,12 @@ FList.prototype.setAnimDelay = function( dt ) {
  */
 FList.prototype.hide = function( element ) {
   var left_pos = element.closest("li").parent().parent().width();
-  element.find("div").stop().animate({ 
+  element.find("div").animate({ 
     paddingLeft : left_pos,
     opacity : 0.0
   },
-  250,
-  function() {
-    element.find("div").animate({maxHeight : "0px"}, 100 );
-  });
-}
-
-/**
- * Create a function to hide an element.
- * @method hideElement
- * @param list_element jQuery list element to hide
- * @return (function) A function that hides the list element when called
- */
-FList.prototype.hideElement = function( list_element ) {
-  if( !list_element.hasClass("hide") )
-    return function() {};
-  list_element.removeClass("hide").addClass("hiding");
-  list_element.stop();
-  var flist_this = this;
-  
-  return function() {
-    // If this element has been "hidden" before this callback was reached, stop
-    flist_this.hide( list_element );
-  }
+  250 );
+  element.find("div").animate({maxHeight : "0px"}, 100 );
 }
 
 /**
@@ -175,32 +136,36 @@ FList.prototype.hideElement = function( list_element ) {
  */
 FList.prototype.show = function( element ) {
   var nheight = element.find("div").children().outerHeight();
-  element.find("div").stop().animate({ maxHeight : nheight }, 
-  100,
-  function() {
-   element.find("div").animate({ 
-      paddingLeft : "0px",
-      opacity : 1.0
-    },
-    250 );
-  });
+  element.find("div").animate({ maxHeight : nheight }, 100 );
+  element.find("div").animate({ 
+    paddingLeft : "0px",
+    opacity : 1.0
+  },
+  250 );
 }
 
 /**
- * Create a function to show an element.
- * @method showElement
- * @param list_element jQuery list element to show
- * @return (function) A function that shows the list element when called
+ * Create a function to update an element.
+ * @method updateElement
+ * @param list_element jQuery list element to update
+ * @return (function) A function that hides/shows the list element when called
  */
-FList.prototype.showElement = function( list_element ) {
-  if( !list_element.hasClass("show") )
-    return function() {};
-  list_element.removeClass("show").addClass("showing");
-  list_element.stop();
+FList.prototype.updateElement = function( list_element ) {
+  // Hide or show element based the 'Flist.show' data
+  if( !list_element.data('FList.show') ) {
+    list_element.queue([]);
+    this.hide( list_element );
+  } else {
+    list_element.queue([]);
+    this.show( list_element );
+  }
+}
+
+FList.prototype.update = function( updateFunction, list_element ) {
   var flist_this = this;
   
   return function() {
-    // If this element has been "shown" before this callback was reached, stop
-    flist_this.show( list_element );
+    flist_this.updateElement( list_element );
+    flist_this.timeout = setTimeout( updateFunction, flist_this.mtime );
   }
 }
