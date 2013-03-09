@@ -19,6 +19,7 @@ function FList( list ) {
   $(list.find("li")).wrapInner('<div />').data('FList.show', true);
   var child_height = $($(list.find("li")).find("div")).children().outerHeight();
   $($(list.find("li")).find("div")).css({ "max-height" : child_height });
+  $(list.find("li")).css({"overflow" : "hidden" });
 }
 
 /* Add a case insensitive contains method to jQuery. */
@@ -119,12 +120,12 @@ FList.prototype.setAnimDelay = function( dt ) {
  */
 FList.prototype.hide = function( element ) {
   var left_pos = element.closest("li").parent().parent().width();
-  element.find("div").animate({ 
+  element.animate({ 
     paddingLeft : left_pos,
     opacity : 0.0
   },
   250 );
-  element.find("div").animate({maxHeight : "0px"}, 100 );
+  element.animate({maxHeight : "0px"}, 100 );
 }
 
 /**
@@ -136,8 +137,8 @@ FList.prototype.hide = function( element ) {
  */
 FList.prototype.show = function( element ) {
   var nheight = element.find("div").children().outerHeight();
-  element.find("div").animate({ maxHeight : nheight }, 100 );
-  element.find("div").animate({ 
+  element.animate({ maxHeight : nheight }, 100 );
+  element.animate({ 
     paddingLeft : "0px",
     opacity : 1.0
   },
@@ -186,7 +187,11 @@ FList.prototype.update = function( updateFunction, list_element, show ) {
     return function() {
       list_element.data( 'FList.show', show );
       flist_this.updateElement( list_element );
-      flist_this.timeout = setTimeout( updateFunction, flist_this.mtime );
+      if( flist_this.mtime === 0 ) {
+        updateFunction();
+      } else {
+        flist_this.timeout = setTimeout( updateFunction, flist_this.mtime );
+      }
     }
   } else {
     return updateFunction;
