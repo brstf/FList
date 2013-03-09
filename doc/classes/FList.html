@@ -174,13 +174,13 @@ extremely simple filtering with animation support.</p>
                 <li class="param">
                     
                         <code class="param-name">list</code>
-                        <span class="type">Object</span>
+                        <span class="type">JQuery</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>(jQuery) A jQuery DOM <ul> or <ol> to create an FList around</p>
+                        <p>A jQuery DOM <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code> to create an FList around</p>
                     </div>
 
                     
@@ -371,13 +371,13 @@ extremely simple filtering with animation support.</p>
                 <li class="param">
                     
                         <code class="param-name">filter_string</code>
-                        <span class="type">Object</span>
+                        <span class="type">String</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>String to filter the list by</p>
+                        <p>Query to filter the list by</p>
                     </div>
 
                     
@@ -402,7 +402,7 @@ extremely simple filtering with animation support.</p>
 
     
         <span class="returns-inline">
-            <span class="type"></span>
+            <span class="type">JQuery</span>
         </span>
     
 
@@ -429,7 +429,7 @@ extremely simple filtering with animation support.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;flist.js.html#l90"><code>flist.js:90</code></a>
+        <a href="..&#x2F;files&#x2F;flist.js.html#l92"><code>flist.js:92</code></a>
         
         </p>
 
@@ -452,7 +452,9 @@ extremely simple filtering with animation support.</p>
             <div class="returns-description">
                 
                     
-                    (jQuery) List of invisible/hidden elements in the list
+                        <span class="type">JQuery</span>:
+                    
+                    List of invisible/hidden elements in the list
                 
             </div>
         </div>
@@ -471,7 +473,7 @@ extremely simple filtering with animation support.</p>
 
     
         <span class="returns-inline">
-            <span class="type"></span>
+            <span class="type">JQuery</span>
         </span>
     
 
@@ -498,7 +500,7 @@ extremely simple filtering with animation support.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;flist.js.html#l81"><code>flist.js:81</code></a>
+        <a href="..&#x2F;files&#x2F;flist.js.html#l83"><code>flist.js:83</code></a>
         
         </p>
 
@@ -521,7 +523,9 @@ extremely simple filtering with animation support.</p>
             <div class="returns-description">
                 
                     
-                    (jQuery) List of visible elements in the list
+                        <span class="type">JQuery</span>:
+                    
+                    List of visible elements in the list
                 
             </div>
         </div>
@@ -573,7 +577,7 @@ extremely simple filtering with animation support.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;flist.js.html#l111"><code>flist.js:111</code></a>
+        <a href="..&#x2F;files&#x2F;flist.js.html#l113"><code>flist.js:113</code></a>
         
         </p>
 
@@ -585,8 +589,8 @@ extremely simple filtering with animation support.</p>
 
     <div class="description">
         <p>Hides a given jQuery element of the filter list.  Change this function to 
-change animation behavior.  The replacing function must accept one parameter,
-which is the jQuery list element to hide.</p>
+change animation behavior.  The replacing function must accept one 
+parameter, which is the jQuery list element to hide.</p>
     </div>
 
     
@@ -598,13 +602,13 @@ which is the jQuery list element to hide.</p>
                 <li class="param">
                     
                         <code class="param-name">element</code>
-                        <span class="type">Object</span>
+                        <span class="type">JQuery</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>(jQuery) List element to show</p>
+                        <p>List element to show</p>
                     </div>
 
                     
@@ -651,7 +655,7 @@ which is the jQuery list element to hide.</p>
 
     
         <span class="returns-inline">
-            <span class="type"></span>
+            <span class="type">Boolean</span>
         </span>
     
 
@@ -678,7 +682,7 @@ which is the jQuery list element to hide.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;flist.js.html#l69"><code>flist.js:69</code></a>
+        <a href="..&#x2F;files&#x2F;flist.js.html#l71"><code>flist.js:71</code></a>
         
         </p>
 
@@ -701,13 +705,13 @@ which is the jQuery list element to hide.</p>
                 <li class="param">
                     
                         <code class="param-name">el</code>
-                        <span class="type">Object</span>
+                        <span class="type">HTMLElement</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>(HTMLElement) The element to test for positivity</p>
+                        <p>The element to test for positivity</p>
                     </div>
 
                     
@@ -716,13 +720,13 @@ which is the jQuery list element to hide.</p>
                 <li class="param">
                     
                         <code class="param-name">index</code>
-                        <span class="type">Object</span>
+                        <span class="type">Integer</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>(Integer) Index of the element in the filter list</p>
+                        <p>Index of the element in the filter list</p>
                     </div>
 
                     
@@ -731,13 +735,13 @@ which is the jQuery list element to hide.</p>
                 <li class="param">
                     
                         <code class="param-name">query</code>
-                        <span class="type">Object</span>
+                        <span class="type">String</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>(String) Query to test the given element on</p>
+                        <p>Query to test the given element on</p>
                     </div>
 
                     
@@ -754,7 +758,9 @@ which is the jQuery list element to hide.</p>
             <div class="returns-description">
                 
                     
-                    (Boolean) True if the element matches the query, false otherwise
+                        <span class="type">Boolean</span>:
+                    
+                    True if the element matches the query, false otherwise
                 
             </div>
         </div>
@@ -789,7 +795,7 @@ which is the jQuery list element to hide.</p>
 
     
         <span class="returns-inline">
-            <span class="type"></span>
+            <span class="type">Function</span>
         </span>
     
 
@@ -839,14 +845,15 @@ which is the jQuery list element to hide.</p>
                 <li class="param">
                     
                         <code class="param-name">positive</code>
-                        <span class="type">Object</span>
+                        <span class="type">Boolean</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>(Boolean) True if a positive match should indicate a true return value,
-                          false if a positive match should indicate a false return value.</p>
+                        <p>True if a positive match should indicate a true 
+       return value, false if a positive match should indicate a false
+       return value.</p>
                     </div>
 
                     
@@ -855,13 +862,13 @@ which is the jQuery list element to hide.</p>
                 <li class="param">
                     
                         <code class="param-name">query</code>
-                        <span class="type">Object</span>
+                        <span class="type">String</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>(String) Query to test the DOM Element on</p>
+                        <p>Query to test the DOM Element on</p>
                     </div>
 
                     
@@ -878,8 +885,11 @@ which is the jQuery list element to hide.</p>
             <div class="returns-description">
                 
                     
-                    (function) Function to test a DOM Element by the query, modifying the return
-                   value by whether or not this should be a "positive" function
+                        <span class="type">Function</span>:
+                    
+                    Function to test a DOM Element by the query, modifying 
+        the return value by whether or not this should be a "positive" 
+        function
                 
             </div>
         </div>
@@ -931,7 +941,7 @@ which is the jQuery list element to hide.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;flist.js.html#l99"><code>flist.js:99</code></a>
+        <a href="..&#x2F;files&#x2F;flist.js.html#l101"><code>flist.js:101</code></a>
         
         </p>
 
@@ -942,10 +952,10 @@ which is the jQuery list element to hide.</p>
     </div>
 
     <div class="description">
-        <p>Function to set the delay (in milliseconds) between animations as elements are filtered
-out of a list.  For example, if this is set to 5 ms, the first filtered out element
-will immediately start its animation, the second one will start the animation in 5 ms,
-the third in 10 ms, etc.</p>
+        <p>Function to set the delay (in milliseconds) between animations as elements 
+are filtered out of a list.  For example, if this is set to 5 ms, the first 
+filtered out element will immediately start its animation, the second one 
+will start the animation in 5 ms, the third in 10 ms, etc.</p>
     </div>
 
     
@@ -957,7 +967,7 @@ the third in 10 ms, etc.</p>
                 <li class="param">
                     
                         <code class="param-name">dt</code>
-                        <span class="type">Object</span>
+                        <span class="type">Integer</span>
                     
 
                     
@@ -1021,7 +1031,7 @@ the third in 10 ms, etc.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;flist.js.html#l128"><code>flist.js:128</code></a>
+        <a href="..&#x2F;files&#x2F;flist.js.html#l130"><code>flist.js:130</code></a>
         
         </p>
 
@@ -1033,8 +1043,8 @@ the third in 10 ms, etc.</p>
 
     <div class="description">
         <p>Shows a given jQuery element of the filter list.  Change this function to 
-change animation behavior.  The replacing function must accept one parameter,
-which is the jQuery list element to show.</p>
+change animation behavior.  The replacing function must accept one 
+parameter, which is the jQuery list element to show.</p>
     </div>
 
     
@@ -1046,7 +1056,7 @@ which is the jQuery list element to show.</p>
                 <li class="param">
                     
                         <code class="param-name">element</code>
-                        <span class="type">Object</span>
+                        <span class="type">JQuery</span>
                     
 
                     
@@ -1099,7 +1109,7 @@ which is the jQuery list element to show.</p>
 
     
         <span class="returns-inline">
-            <span class="type"></span>
+            <span class="type">Function</span>
         </span>
     
 
@@ -1126,7 +1136,7 @@ which is the jQuery list element to show.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;flist.js.html#l163"><code>flist.js:163</code></a>
+        <a href="..&#x2F;files&#x2F;flist.js.html#l165"><code>flist.js:165</code></a>
         
         </p>
 
@@ -1151,14 +1161,14 @@ element in turn to hide/show the element as specified.</p>
                 <li class="param">
                     
                         <code class="param-name">updateFunction</code>
-                        <span class="type">Object</span>
+                        <span class="type">Function</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>The composite update function that updates all of
-       the list elements so far</p>
+                        <p>The composite update function that updates 
+       all of the list elements so far</p>
                     </div>
 
                     
@@ -1167,15 +1177,15 @@ element in turn to hide/show the element as specified.</p>
                 <li class="param">
                     
                         <code class="param-name">list_element</code>
-                        <span class="type">Object</span>
+                        <span class="type">JQuery</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>An element of the list to potentially update.  If the
-       element is showing, but should be hidden, compound its update into
-       the function and vice versa.</p>
+                        <p>An element of the list to potentially update.
+       If the element is showing, but should be hidden, compound its update 
+       into the function and vice versa.</p>
                     </div>
 
                     
@@ -1184,13 +1194,13 @@ element in turn to hide/show the element as specified.</p>
                 <li class="param">
                     
                         <code class="param-name">show</code>
-                        <span class="type">Object</span>
+                        <span class="type">Boolean</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>Boolean indicating whether this list element should be shown 
+                        <p>Indicates whether this list element should be shown 
        or not</p>
                     </div>
 
@@ -1208,9 +1218,11 @@ element in turn to hide/show the element as specified.</p>
             <div class="returns-description">
                 
                     
-                    An updated composite function that updates all elements in the 
-        list appropriately when called, with a proper timeout between 
-        each animation/update
+                        <span class="type">Function</span>:
+                    
+                    An updated composite function that updates all elements 
+        in the list appropriately when called, with a proper timeout 
+        between each animation/update
                 
             </div>
         </div>
@@ -1239,7 +1251,7 @@ element in turn to hide/show the element as specified.</p>
 
     
         <span class="returns-inline">
-            <span class="type"></span>
+            <span class="type">Function</span>
         </span>
     
 
@@ -1266,7 +1278,7 @@ element in turn to hide/show the element as specified.</p>
             
         
         
-        <a href="..&#x2F;files&#x2F;flist.js.html#l145"><code>flist.js:145</code></a>
+        <a href="..&#x2F;files&#x2F;flist.js.html#l147"><code>flist.js:147</code></a>
         
         </p>
 
@@ -1290,13 +1302,13 @@ hidden, show an element if it should be shown.</p>
                 <li class="param">
                     
                         <code class="param-name">list_element</code>
-                        <span class="type">Object</span>
+                        <span class="type">JQuery</span>
                     
 
                     
 
                     <div class="param-description">
-                        <p>jQuery list element to update</p>
+                        <p>List element to update</p>
                     </div>
 
                     
@@ -1313,7 +1325,9 @@ hidden, show an element if it should be shown.</p>
             <div class="returns-description">
                 
                     
-                    (function) A function that hides/shows the list element when called
+                        <span class="type">Function</span>:
+                    
+                    A function that hides/shows the list element when called
                 
             </div>
         </div>

@@ -6,7 +6,7 @@
  * @constructor
  * Initializes an FList filter list on an unordered list DOM element.
  * @requires jQuery
- * @param list (jQuery) A jQuery DOM <ul> or <ol> to create an FList around
+ * @param list {jQuery} A jQuery DOM `<ul>` or `<ol>` to create an FList around
  */
 function FList( list ) {
   this.list = list;
@@ -29,7 +29,7 @@ jQuery.expr[':'].Contains = function(a,i,m){
 /**
  * Filter the filter list by a given filter string, with animations.
  * @method filter
- * @param filter_string String to filter the list by
+ * @param filter_string {String} Query to filter the list by
  */
 FList.prototype.filter = function( query ) {
   // Show matched elements
@@ -51,11 +51,13 @@ FList.prototype.filter = function( query ) {
 /**
  * Constructs a function to test a DOM element by the filter query.
  * @method selector
- * @param positive (Boolean) True if a positive match should indicate a true return value,
- *                           false if a positive match should indicate a false return value.
- * @param query (String) Query to test the DOM Element on
- * @return (function) Function to test a DOM Element by the query, modifying the return
- *                    value by whether or not this should be a "positive" function
+ * @param positive {Boolean} True if a positive match should indicate a true 
+ *        return value, false if a positive match should indicate a false
+ *        return value.
+ * @param query {String} Query to test the DOM Element on
+ * @return {function} Function to test a DOM Element by the query, modifying 
+ *         the return value by whether or not this should be a "positive" 
+ *         function
  */
 FList.prototype.selector = function( positive, query ) {
   var flist_this = this;
@@ -69,10 +71,10 @@ FList.prototype.selector = function( positive, query ) {
 /**
  * Determines if a given element is positively selected by the filter query.
  * @method positiveSelector
- * @param el (HTMLElement) The element to test for positivity
- * @param index (Integer) Index of the element in the filter list
- * @param query (String) Query to test the given element on
- * @return (Boolean) True if the element matches the query, false otherwise
+ * @param el {HTMLElement} The element to test for positivity
+ * @param index {Integer} Index of the element in the filter list
+ * @param query {String} Query to test the given element on
+ * @return {Boolean} True if the element matches the query, false otherwise
  */
 FList.prototype.positiveSelector = function( el, index, query ) {
   return $(el).is( ":Contains('" + query + "')" );
@@ -81,7 +83,7 @@ FList.prototype.positiveSelector = function( el, index, query ) {
 /**
  * Retrieves a jQuery list of all visible elements depending on the filter.
  * @method getVisibleElements
- * @return (jQuery) List of visible elements in the list
+ * @return {jQuery} List of visible elements in the list
  */
 FList.prototype.getVisibleElements = function() {
   return this.list.find(".show, .showing");
@@ -90,19 +92,19 @@ FList.prototype.getVisibleElements = function() {
 /**
  * Retrieves a jQuery list of all invisible/hidden elements depending on the filter.
  * @method getInvisibleElements
- * @return (jQuery) List of invisible/hidden elements in the list
+ * @return {jQuery} List of invisible/hidden elements in the list
  */
 FList.prototype.getInvisibleElements = function() {
   return this.list.find(".hide, .hidden");
 }
 
 /**
- * Function to set the delay (in milliseconds) between animations as elements are filtered
- * out of a list.  For example, if this is set to 5 ms, the first filtered out element
- * will immediately start its animation, the second one will start the animation in 5 ms,
- * the third in 10 ms, etc.
+ * Function to set the delay (in milliseconds) between animations as elements 
+ * are filtered out of a list.  For example, if this is set to 5 ms, the first 
+ * filtered out element will immediately start its animation, the second one 
+ * will start the animation in 5 ms, the third in 10 ms, etc.
  * @method setAnimDelay
- * @param dt Animation delay (in ms)
+ * @param dt {Integer} Animation delay (in ms)
  */
 FList.prototype.setAnimDelay = function( dt ) {
   this.mtime = dt;
@@ -110,10 +112,10 @@ FList.prototype.setAnimDelay = function( dt ) {
 
 /**
  * Hides a given jQuery element of the filter list.  Change this function to 
- * change animation behavior.  The replacing function must accept one parameter,
- * which is the jQuery list element to hide.
+ * change animation behavior.  The replacing function must accept one 
+ * parameter, which is the jQuery list element to hide.
  * @method hide
- * @param element (jQuery) List element to show
+ * @param element {jQuery} List element to show
  */
 FList.prototype.hide = function( element ) {
   var left_pos = element.closest("li").parent().parent().width();
@@ -127,10 +129,10 @@ FList.prototype.hide = function( element ) {
 
 /**
  * Shows a given jQuery element of the filter list.  Change this function to 
- * change animation behavior.  The replacing function must accept one parameter,
- * which is the jQuery list element to show.
+ * change animation behavior.  The replacing function must accept one 
+ * parameter, which is the jQuery list element to show.
  * @method show
- * @param element List element to show
+ * @param element {jQuery} List element to show
  */
 FList.prototype.show = function( element ) {
   var nheight = element.find("div").children().outerHeight();
@@ -146,8 +148,8 @@ FList.prototype.show = function( element ) {
  * Create a function to update an element; hide an element if it should be 
  * hidden, show an element if it should be shown.
  * @method updateElement
- * @param list_element jQuery list element to update
- * @return (function) A function that hides/shows the list element when called
+ * @param list_element {jQuery} List element to update
+ * @return {function} A function that hides/shows the list element when called
  */
 FList.prototype.updateElement = function( list_element ) {
   // Hide or show element based the 'Flist.show' data
@@ -165,16 +167,16 @@ FList.prototype.updateElement = function( list_element ) {
  * update function is a function that calls an update function for each list
  * element in turn to hide/show the element as specified.
  * @method update
- * @param updateFunction The composite update function that updates all of
- *        the list elements so far
- * @param list_element An element of the list to potentially update.  If the
- *        element is showing, but should be hidden, compound its update into
- *        the function and vice versa.
- * @param show Boolean indicating whether this list element should be shown 
+ * @param updateFunction {function} The composite update function that updates 
+ *        all of the list elements so far
+ * @param list_element {jQuery} An element of the list to potentially update.
+ *        If the element is showing, but should be hidden, compound its update 
+ *        into the function and vice versa.
+ * @param show {Boolean} Indicates whether this list element should be shown 
  *        or not
- * @return An updated composite function that updates all elements in the 
- *         list appropriately when called, with a proper timeout between 
- *         each animation/update
+ * @return {function} An updated composite function that updates all elements 
+ *         in the list appropriately when called, with a proper timeout 
+ *         between each animation/update
  */
 FList.prototype.update = function( updateFunction, list_element, show ) {
   var flist_this = this;
