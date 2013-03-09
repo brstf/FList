@@ -98,7 +98,7 @@
  *&#x2F;
 function FList( list ) {
   this.list = list;
-  this.mtime = 5;
+  this.mtime = 1;
   this.textQuery = &quot;div&quot;;
   this.list.css({&quot;overflow&quot; : &quot;hidden&quot;});
   this.timeout = null;
@@ -107,6 +107,7 @@ function FList( list ) {
   $(list.find(&quot;li&quot;)).wrapInner(&#x27;&lt;div &#x2F;&gt;&#x27;).data(&#x27;FList.show&#x27;, true);
   var child_height = $($(list.find(&quot;li&quot;)).find(&quot;div&quot;)).children().outerHeight();
   $($(list.find(&quot;li&quot;)).find(&quot;div&quot;)).css({ &quot;max-height&quot; : child_height });
+  $(list.find(&quot;li&quot;)).css({&quot;overflow&quot; : &quot;hidden&quot; });
 }
 
 &#x2F;* Add a case insensitive contains method to jQuery. *&#x2F;
@@ -169,12 +170,13 @@ FList.prototype.positiveSelector = function( el, index, query ) {
 }
 
 &#x2F;**
- * Retrieves a jQuery list of all visible elements depending on the filter.
- * @method getVisibleElements
- * @return {jQuery} List of visible elements in the list
+ * Gets the default height of an element in the list.
+ * @method getDefaultHeight
+ * @param {jQuery} List element to retrieve the default height of
+ * @return {Integer} Default height (in pixels) of the list element
  *&#x2F;
-FList.prototype.getVisibleElements = function() {
-  return this.list.find(&quot;.show, .showing&quot;);
+FList.prototype.getDefaultHeight = function( list_element ) {
+  return list_element.find(&quot;div&quot;).children().outerHeight();
 }
 
 &#x2F;**
@@ -184,6 +186,15 @@ FList.prototype.getVisibleElements = function() {
  *&#x2F;
 FList.prototype.getInvisibleElements = function() {
   return this.list.find(&quot;.hide, .hidden&quot;);
+}
+
+&#x2F;**
+ * Retrieves a jQuery list of all visible elements depending on the filter.
+ * @method getVisibleElements
+ * @return {jQuery} List of visible elements in the list
+ *&#x2F;
+FList.prototype.getVisibleElements = function() {
+  return this.list.find(&quot;.show, .showing&quot;);
 }
 
 &#x2F;**
@@ -207,12 +218,12 @@ FList.prototype.setAnimDelay = function( dt ) {
  *&#x2F;
 FList.prototype.hide = function( element ) {
   var left_pos = element.closest(&quot;li&quot;).parent().parent().width();
-  element.find(&quot;div&quot;).animate({ 
+  element.animate({ 
     paddingLeft : left_pos,
     opacity : 0.0
   },
   250 );
-  element.find(&quot;div&quot;).animate({maxHeight : &quot;0px&quot;}, 100 );
+  element.animate({maxHeight : &quot;0px&quot;}, 100 );
 }
 
 &#x2F;**
@@ -223,9 +234,8 @@ FList.prototype.hide = function( element ) {
  * @param element {jQuery} List element to show
  *&#x2F;
 FList.prototype.show = function( element ) {
-  var nheight = element.find(&quot;div&quot;).children().outerHeight();
-  element.find(&quot;div&quot;).animate({ maxHeight : nheight }, 100 );
-  element.find(&quot;div&quot;).animate({ 
+  element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
+  element.animate({ 
     paddingLeft : &quot;0px&quot;,
     opacity : 1.0
   },
@@ -274,7 +284,11 @@ FList.prototype.update = function( updateFunction, list_element, show ) {
     return function() {
       list_element.data( &#x27;FList.show&#x27;, show );
       flist_this.updateElement( list_element );
-      flist_this.timeout = setTimeout( updateFunction, flist_this.mtime );
+      if( flist_this.mtime === 0 ) {
+        updateFunction();
+      } else {
+        flist_this.timeout = setTimeout( updateFunction, flist_this.mtime );
+      }
     }
   } else {
     return updateFunction;

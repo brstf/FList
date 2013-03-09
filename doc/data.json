@@ -40,7 +40,7 @@
     "classitems": [
         {
             "file": "flist.js",
-            "line": 29,
+            "line": 30,
             "description": "Filter the filter list by a given filter string, with animations.",
             "itemtype": "method",
             "name": "filter",
@@ -55,7 +55,7 @@
         },
         {
             "file": "flist.js",
-            "line": 51,
+            "line": 52,
             "description": "Constructs a function to test a DOM element by the filter query.",
             "itemtype": "method",
             "name": "selector",
@@ -79,7 +79,7 @@
         },
         {
             "file": "flist.js",
-            "line": 71,
+            "line": 72,
             "description": "Determines if a given element is positively selected by the filter query.",
             "itemtype": "method",
             "name": "positiveSelector",
@@ -108,19 +108,26 @@
         },
         {
             "file": "flist.js",
-            "line": 83,
-            "description": "Retrieves a jQuery list of all visible elements depending on the filter.",
+            "line": 84,
+            "description": "Gets the default height of an element in the list.",
             "itemtype": "method",
-            "name": "getVisibleElements",
+            "name": "getDefaultHeight",
+            "params": [
+                {
+                    "name": "List",
+                    "description": "element to retrieve the default height of",
+                    "type": "JQuery"
+                }
+            ],
             "return": {
-                "description": "List of visible elements in the list",
-                "type": "JQuery"
+                "description": "Default height (in pixels) of the list element",
+                "type": "Integer"
             },
             "class": "FList"
         },
         {
             "file": "flist.js",
-            "line": 92,
+            "line": 94,
             "description": "Retrieves a jQuery list of all invisible/hidden elements depending on the filter.",
             "itemtype": "method",
             "name": "getInvisibleElements",
@@ -132,7 +139,19 @@
         },
         {
             "file": "flist.js",
-            "line": 101,
+            "line": 103,
+            "description": "Retrieves a jQuery list of all visible elements depending on the filter.",
+            "itemtype": "method",
+            "name": "getVisibleElements",
+            "return": {
+                "description": "List of visible elements in the list",
+                "type": "JQuery"
+            },
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 112,
             "description": "Function to set the delay (in milliseconds) between animations as elements \nare filtered out of a list.  For example, if this is set to 5 ms, the first \nfiltered out element will immediately start its animation, the second one \nwill start the animation in 5 ms, the third in 10 ms, etc.",
             "itemtype": "method",
             "name": "setAnimDelay",
@@ -147,7 +166,7 @@
         },
         {
             "file": "flist.js",
-            "line": 113,
+            "line": 124,
             "description": "Hides a given jQuery element of the filter list.  Change this function to \nchange animation behavior.  The replacing function must accept one \nparameter, which is the jQuery list element to hide.",
             "itemtype": "method",
             "name": "hide",
@@ -162,7 +181,7 @@
         },
         {
             "file": "flist.js",
-            "line": 130,
+            "line": 141,
             "description": "Shows a given jQuery element of the filter list.  Change this function to \nchange animation behavior.  The replacing function must accept one \nparameter, which is the jQuery list element to show.",
             "itemtype": "method",
             "name": "show",
@@ -177,7 +196,7 @@
         },
         {
             "file": "flist.js",
-            "line": 147,
+            "line": 157,
             "description": "Create a function to update an element; hide an element if it should be \nhidden, show an element if it should be shown.",
             "itemtype": "method",
             "name": "updateElement",
@@ -196,7 +215,7 @@
         },
         {
             "file": "flist.js",
-            "line": 165,
+            "line": 175,
             "description": "Compounds an update function that shows/hides all elements.  The resulting\nupdate function is a function that calls an update function for each list\nelement in turn to hide/show the element as specified.",
             "itemtype": "method",
             "name": "update",

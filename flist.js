@@ -10,7 +10,7 @@
  */
 function FList( list ) {
   this.list = list;
-  this.mtime = 5;
+  this.mtime = 1;
   this.textQuery = "div";
   this.list.css({"overflow" : "hidden"});
   this.timeout = null;
@@ -82,12 +82,13 @@ FList.prototype.positiveSelector = function( el, index, query ) {
 }
 
 /**
- * Retrieves a jQuery list of all visible elements depending on the filter.
- * @method getVisibleElements
- * @return {jQuery} List of visible elements in the list
+ * Gets the default height of an element in the list.
+ * @method getDefaultHeight
+ * @param {jQuery} List element to retrieve the default height of
+ * @return {Integer} Default height (in pixels) of the list element
  */
-FList.prototype.getVisibleElements = function() {
-  return this.list.find(".show, .showing");
+FList.prototype.getDefaultHeight = function( list_element ) {
+  return list_element.find("div").children().outerHeight();
 }
 
 /**
@@ -97,6 +98,15 @@ FList.prototype.getVisibleElements = function() {
  */
 FList.prototype.getInvisibleElements = function() {
   return this.list.find(".hide, .hidden");
+}
+
+/**
+ * Retrieves a jQuery list of all visible elements depending on the filter.
+ * @method getVisibleElements
+ * @return {jQuery} List of visible elements in the list
+ */
+FList.prototype.getVisibleElements = function() {
+  return this.list.find(".show, .showing");
 }
 
 /**
@@ -136,8 +146,7 @@ FList.prototype.hide = function( element ) {
  * @param element {jQuery} List element to show
  */
 FList.prototype.show = function( element ) {
-  var nheight = element.find("div").children().outerHeight();
-  element.animate({ maxHeight : nheight }, 100 );
+  element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
   element.animate({ 
     paddingLeft : "0px",
     opacity : 1.0
