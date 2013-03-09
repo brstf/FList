@@ -37,15 +37,13 @@ FList.prototype.filter = function( query ) {
   var updateFunction = function(){};
   var elements = this.list.find(this.textQuery).filter(this.selector(true, query)).closest("li");
   for( var i = elements.length - 1; i >= 0; i-- ) {
-    $(elements.get(i)).data('FList.show', true);
-    updateFunction = this.update( updateFunction, $(elements.get(i)) );
+    updateFunction = this.update( updateFunction, $(elements.get(i)), true );
   }
   
   // Hide unmatched elements
   elements = this.list.find(this.textQuery).filter(this.selector(false, query)).closest("li");
   for( var i = elements.length - 1; i>= 0; i-- ) {
-    $(elements.get(i)).data('FList.show', false);
-    updateFunction = this.update( updateFunction, $(elements.get(i)) );
+    updateFunction = this.update( updateFunction, $(elements.get(i)), false );
   }
   updateFunction();
 }
@@ -145,14 +143,15 @@ FList.prototype.show = function( element ) {
 }
 
 /**
- * Create a function to update an element.
+ * Create a function to update an element; hide an element if it should be 
+ * hidden, show an element if it should be shown.
  * @method updateElement
  * @param list_element jQuery list element to update
  * @return (function) A function that hides/shows the list element when called
  */
 FList.prototype.updateElement = function( list_element ) {
   // Hide or show element based the 'Flist.show' data
-  if( !list_element.data('FList.show') ) {
+  if(!list_element.data('FList.show') ) {
     list_element.queue([]);
     this.hide( list_element );
   } else {
@@ -161,11 +160,33 @@ FList.prototype.updateElement = function( list_element ) {
   }
 }
 
-FList.prototype.update = function( updateFunction, list_element ) {
+/**
+ * Compounds an update function that shows/hides all elements.  The resulting
+ * update function is a function that calls an update function for each list
+ * element in turn to hide/show the element as specified.
+ * @method update
+ * @param updateFunction The composite update function that updates all of
+ *        the list elements so far
+ * @param list_element An element of the list to potentially update.  If the
+ *        element is showing, but should be hidden, compound its update into
+ *        the function and vice versa.
+ * @param show Boolean indicating whether this list element should be shown 
+ *        or not
+ * @return An updated composite function that updates all elements in the 
+ *         list appropriately when called, with a proper timeout between 
+ *         each animation/update
+ */
+FList.prototype.update = function( updateFunction, list_element, show ) {
   var flist_this = this;
   
-  return function() {
-    flist_this.updateElement( list_element );
-    flist_this.timeout = setTimeout( updateFunction, flist_this.mtime );
+  // Only add to the update function if this element is changing state
+  if( list_element.data('FList.show') != show ) {
+    return function() {
+      list_element.data( 'FList.show', show );
+      flist_this.updateElement( list_element );
+      flist_this.timeout = setTimeout( updateFunction, flist_this.mtime );
+    }
+  } else {
+    return updateFunction;
   }
 }
