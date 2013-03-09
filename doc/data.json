@@ -1,0 +1,208 @@
+{
+    "project": {},
+    "files": {
+        "flist.js": {
+            "name": "flist.js",
+            "modules": {},
+            "classes": {
+                "FList": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {},
+    "classes": {
+        "FList": {
+            "name": "FList",
+            "shortname": "FList",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "file": "flist.js",
+            "line": 1,
+            "description": "FList is a filterable list created over an HTML unordered list that allows\nextremely simple filtering with animation support.",
+            "is_constructor": 1,
+            "requires": [
+                "jQuery"
+            ],
+            "params": [
+                {
+                    "name": "list",
+                    "description": "(jQuery) A jQuery DOM <ul> or <ol> to create an FList around"
+                }
+            ]
+        }
+    },
+    "classitems": [
+        {
+            "file": "flist.js",
+            "line": 29,
+            "description": "Filter the filter list by a given filter string, with animations.",
+            "itemtype": "method",
+            "name": "filter",
+            "params": [
+                {
+                    "name": "filter_string",
+                    "description": "String to filter the list by"
+                }
+            ],
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 51,
+            "description": "Constructs a function to test a DOM element by the filter query.",
+            "itemtype": "method",
+            "name": "selector",
+            "params": [
+                {
+                    "name": "positive",
+                    "description": "(Boolean) True if a positive match should indicate a true return value,\n                          false if a positive match should indicate a false return value."
+                },
+                {
+                    "name": "query",
+                    "description": "(String) Query to test the DOM Element on"
+                }
+            ],
+            "return": {
+                "description": "(function) Function to test a DOM Element by the query, modifying the return\n                   value by whether or not this should be a \"positive\" function"
+            },
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 69,
+            "description": "Determines if a given element is positively selected by the filter query.",
+            "itemtype": "method",
+            "name": "positiveSelector",
+            "params": [
+                {
+                    "name": "el",
+                    "description": "(HTMLElement) The element to test for positivity"
+                },
+                {
+                    "name": "index",
+                    "description": "(Integer) Index of the element in the filter list"
+                },
+                {
+                    "name": "query",
+                    "description": "(String) Query to test the given element on"
+                }
+            ],
+            "return": {
+                "description": "(Boolean) True if the element matches the query, false otherwise"
+            },
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 81,
+            "description": "Retrieves a jQuery list of all visible elements depending on the filter.",
+            "itemtype": "method",
+            "name": "getVisibleElements",
+            "return": {
+                "description": "(jQuery) List of visible elements in the list"
+            },
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 90,
+            "description": "Retrieves a jQuery list of all invisible/hidden elements depending on the filter.",
+            "itemtype": "method",
+            "name": "getInvisibleElements",
+            "return": {
+                "description": "(jQuery) List of invisible/hidden elements in the list"
+            },
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 99,
+            "description": "Function to set the delay (in milliseconds) between animations as elements are filtered\nout of a list.  For example, if this is set to 5 ms, the first filtered out element\nwill immediately start its animation, the second one will start the animation in 5 ms,\nthe third in 10 ms, etc.",
+            "itemtype": "method",
+            "name": "setAnimDelay",
+            "params": [
+                {
+                    "name": "dt",
+                    "description": "Animation delay (in ms)"
+                }
+            ],
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 111,
+            "description": "Hides a given jQuery element of the filter list.  Change this function to \nchange animation behavior.  The replacing function must accept one parameter,\nwhich is the jQuery list element to hide.",
+            "itemtype": "method",
+            "name": "hide",
+            "params": [
+                {
+                    "name": "element",
+                    "description": "(jQuery) List element to show"
+                }
+            ],
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 128,
+            "description": "Shows a given jQuery element of the filter list.  Change this function to \nchange animation behavior.  The replacing function must accept one parameter,\nwhich is the jQuery list element to show.",
+            "itemtype": "method",
+            "name": "show",
+            "params": [
+                {
+                    "name": "element",
+                    "description": "List element to show"
+                }
+            ],
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 145,
+            "description": "Create a function to update an element; hide an element if it should be \nhidden, show an element if it should be shown.",
+            "itemtype": "method",
+            "name": "updateElement",
+            "params": [
+                {
+                    "name": "list_element",
+                    "description": "jQuery list element to update"
+                }
+            ],
+            "return": {
+                "description": "(function) A function that hides/shows the list element when called"
+            },
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 163,
+            "description": "Compounds an update function that shows/hides all elements.  The resulting\nupdate function is a function that calls an update function for each list\nelement in turn to hide/show the element as specified.",
+            "itemtype": "method",
+            "name": "update",
+            "params": [
+                {
+                    "name": "updateFunction",
+                    "description": "The composite update function that updates all of\n       the list elements so far"
+                },
+                {
+                    "name": "list_element",
+                    "description": "An element of the list to potentially update.  If the\n       element is showing, but should be hidden, compound its update into\n       the function and vice versa."
+                },
+                {
+                    "name": "show",
+                    "description": "Boolean indicating whether this list element should be shown \n       or not"
+                }
+            ],
+            "return": {
+                "description": "An updated composite function that updates all elements in the \n        list appropriately when called, with a proper timeout between \n        each animation/update"
+            },
+            "class": "FList"
+        }
+    ],
+    "warnings": []
+}
