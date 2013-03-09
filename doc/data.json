@@ -40,7 +40,7 @@
     "classitems": [
         {
             "file": "flist.js",
-            "line": 30,
+            "line": 27,
             "description": "Filter the filter list by a given filter string, with animations.",
             "itemtype": "method",
             "name": "filter",
@@ -55,7 +55,7 @@
         },
         {
             "file": "flist.js",
-            "line": 52,
+            "line": 49,
             "description": "Constructs a function to test a DOM element by the filter query.",
             "itemtype": "method",
             "name": "selector",
@@ -79,7 +79,7 @@
         },
         {
             "file": "flist.js",
-            "line": 72,
+            "line": 69,
             "description": "Determines if a given element is positively selected by the filter query.",
             "itemtype": "method",
             "name": "positiveSelector",
@@ -108,7 +108,7 @@
         },
         {
             "file": "flist.js",
-            "line": 84,
+            "line": 81,
             "description": "Gets the default height of an element in the list.",
             "itemtype": "method",
             "name": "getDefaultHeight",
@@ -127,7 +127,7 @@
         },
         {
             "file": "flist.js",
-            "line": 94,
+            "line": 91,
             "description": "Retrieves a jQuery list of all invisible/hidden elements depending on the filter.",
             "itemtype": "method",
             "name": "getInvisibleElements",
@@ -139,7 +139,7 @@
         },
         {
             "file": "flist.js",
-            "line": 103,
+            "line": 100,
             "description": "Retrieves a jQuery list of all visible elements depending on the filter.",
             "itemtype": "method",
             "name": "getVisibleElements",
@@ -151,7 +151,7 @@
         },
         {
             "file": "flist.js",
-            "line": 112,
+            "line": 109,
             "description": "Function to set the delay (in milliseconds) between animations as elements \nare filtered out of a list.  For example, if this is set to 5 ms, the first \nfiltered out element will immediately start its animation, the second one \nwill start the animation in 5 ms, the third in 10 ms, etc.",
             "itemtype": "method",
             "name": "setAnimDelay",
@@ -166,7 +166,7 @@
         },
         {
             "file": "flist.js",
-            "line": 124,
+            "line": 121,
             "description": "Hides a given jQuery element of the filter list.  Change this function to \nchange animation behavior.  The replacing function must accept one \nparameter, which is the jQuery list element to hide.",
             "itemtype": "method",
             "name": "hide",
@@ -181,7 +181,7 @@
         },
         {
             "file": "flist.js",
-            "line": 141,
+            "line": 138,
             "description": "Shows a given jQuery element of the filter list.  Change this function to \nchange animation behavior.  The replacing function must accept one \nparameter, which is the jQuery list element to show.",
             "itemtype": "method",
             "name": "show",
@@ -196,7 +196,7 @@
         },
         {
             "file": "flist.js",
-            "line": 157,
+            "line": 154,
             "description": "Create a function to update an element; hide an element if it should be \nhidden, show an element if it should be shown.",
             "itemtype": "method",
             "name": "updateElement",
@@ -215,7 +215,7 @@
         },
         {
             "file": "flist.js",
-            "line": 175,
+            "line": 172,
             "description": "Compounds an update function that shows/hides all elements.  The resulting\nupdate function is a function that calls an update function for each list\nelement in turn to hide/show the element as specified.",
             "itemtype": "method",
             "name": "update",

@@ -11,15 +11,12 @@
 function FList( list ) {
   this.list = list;
   this.mtime = 1;
-  this.textQuery = "div";
+  this.textQuery = "li";
   this.list.css({"overflow" : "hidden"});
   this.timeout = null;
   
-  // Wrap each list element's contents with a div to use to restore height
-  $(list.find("li")).wrapInner('<div />').data('FList.show', true);
-  var child_height = $($(list.find("li")).find("div")).children().outerHeight();
-  $($(list.find("li")).find("div")).css({ "max-height" : child_height });
-  $(list.find("li")).css({"overflow" : "hidden" });
+  // Set list element to showing and overflow hidden
+  $(list.find("li")).data('FList.show', true).css({"overflow" : "hidden" });
 }
 
 /* Add a case insensitive contains method to jQuery. */
@@ -88,7 +85,7 @@ FList.prototype.positiveSelector = function( el, index, query ) {
  * @return {Integer} Default height (in pixels) of the list element
  */
 FList.prototype.getDefaultHeight = function( list_element ) {
-  return list_element.find("div").children().outerHeight();
+  return list_element.children().outerHeight();
 }
 
 /**
