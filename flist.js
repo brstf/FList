@@ -16,6 +16,7 @@ function FList( list ) {
   this.timeout = null;
   
   // Set list element to showing and overflow hidden
+  $(list.find("li")).wrapInner("<div />");
   $(list.find("li")).data('FList.show', true).css({"overflow" : "hidden" });
 }
 
@@ -89,12 +90,42 @@ FList.prototype.getDefaultHeight = function( list_element ) {
 }
 
 /**
+ * Gets the default width of an element in the list.
+ * @method getDefaultWidth
+ * @param {jQuery} List element to retrieve the default width of
+ * @return {Integer} Default width (in pixels) of the list element
+ */
+FList.prototype.getDefaultWidth = function( list_element ) {
+  return list_element.children().outerWidth();
+}
+
+/**
  * Retrieves a jQuery list of all invisible/hidden elements depending on the filter.
  * @method getInvisibleElements
  * @return {jQuery} List of invisible/hidden elements in the list
  */
 FList.prototype.getInvisibleElements = function() {
   return this.list.find(".hide, .hidden");
+}
+
+/**
+ * Retrieves the maximum height of all child elements.  This is calculated by
+ * looping through all elements to compare heights.
+ * @method getMaxElementHeight
+ * @return {Integer} Max height of all elements in the list
+ */
+FList.prototype.getMaxElementHeight = function() {
+  return Math.max.apply(Math, this.list.find('li').map(function(){ return $(this).height(); }).get());
+}
+
+/**
+ * Retrieves the maximum width of all child elements.  This is calculated by
+ * looping through all elements to compare widths.
+ * @method getMaxElementWidth
+ * @return {Integer} Max width of all elements in the list
+ */
+FList.prototype.getMaxElementWidth = function() {
+  return Math.max.apply(Math, this.list.find('li').map(function(){ return $(this).width(); }).get());
 }
 
 /**
@@ -126,9 +157,8 @@ FList.prototype.setAnimDelay = function( dt ) {
  * @param element {jQuery} List element to show
  */
 FList.prototype.hide = function( element ) {
-  var left_pos = element.closest("li").parent().parent().width();
   element.animate({ 
-    paddingLeft : left_pos,
+    paddingLeft : this.list.width(),
     opacity : 0.0
   },
   250 );
