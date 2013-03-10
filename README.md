@@ -1,7 +1,7 @@
 FList
 =====
 
-Simple and flexible animating filterable list using [jQuery](http://jquery.com).  The animations and filter can be specified to obtain desired functionality.
+Simple and flexible animating filterable list using [jQuery](http://jquery.com).  The animations and filter can be specified to obtain desired functionality.  Documentation generated using [YUIDoc](http://yui.github.com/yuidoc/).
 
 Initializing FList
 ------------------
