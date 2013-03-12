@@ -150,20 +150,53 @@ FList.prototype.setAnimDelay = function( dt ) {
 }
 
 /**
+ * Generates a function to hide a list element by sliding it to the right
+ * for use with the FList.hide function.
+ * @method hideRight
+ * @return {function} A function that takes a jQuery list element and 
+ *         animates it by sliding it to the right and decreasing its 
+ *         height to hide it from view.  For use with the corresponding 
+ *         show function showRight.
+ */
+FList.prototype.hideRight = function() {
+  return function(element) {
+    element.animate({ 
+      paddingLeft : this.list.width(),
+      opacity : 0.0
+    },
+    250 );
+    element.animate({maxHeight : "0px"}, 100 );
+  }
+}
+
+/**
+ * Generates a function to show a list element by sliding it from the right
+ * for use with the FList.show function.
+ * @method showRight
+ * @return {function} A function that takes a jQuery list element and 
+ *         animates it by increasing its height and sliding it from the 
+ *         right.  For use with the corresponding hide function hideRight.
+ */
+FList.prototype.showRight = function() {
+  return function(element) {
+    element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
+    element.animate({ 
+      paddingLeft : "0px",
+      opacity : 1.0
+    },
+    250 );
+  }
+}
+
+
+/**
  * Hides a given jQuery element of the filter list.  Change this function to 
  * change animation behavior.  The replacing function must accept one 
  * parameter, which is the jQuery list element to hide.
  * @method hide
  * @param element {jQuery} List element to show
  */
-FList.prototype.hide = function( element ) {
-  element.animate({ 
-    paddingLeft : this.list.width(),
-    opacity : 0.0
-  },
-  250 );
-  element.animate({maxHeight : "0px"}, 100 );
-}
+FList.prototype.hide = FList.prototype.hideRight();
 
 /**
  * Shows a given jQuery element of the filter list.  Change this function to 
@@ -172,14 +205,7 @@ FList.prototype.hide = function( element ) {
  * @method show
  * @param element {jQuery} List element to show
  */
-FList.prototype.show = function( element ) {
-  element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
-  element.animate({ 
-    paddingLeft : "0px",
-    opacity : 1.0
-  },
-  250 );
-}
+FList.prototype.show = FList.prototype.showRight();
 
 /**
  * Create a function to update an element; hide an element if it should be 
