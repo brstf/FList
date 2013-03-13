@@ -104,6 +104,7 @@ function FList( list ) {
   this.timeout = null;
   
   &#x2F;&#x2F; Set list element to showing and overflow hidden
+  $(list.find(&quot;li&quot;)).wrapInner(&quot;&lt;div &#x2F;&gt;&quot;);
   $(list.find(&quot;li&quot;)).data(&#x27;FList.show&#x27;, true).css({&quot;overflow&quot; : &quot;hidden&quot; });
 }
 
@@ -177,12 +178,42 @@ FList.prototype.getDefaultHeight = function( list_element ) {
 }
 
 &#x2F;**
+ * Gets the default width of an element in the list.
+ * @method getDefaultWidth
+ * @param {jQuery} List element to retrieve the default width of
+ * @return {Integer} Default width (in pixels) of the list element
+ *&#x2F;
+FList.prototype.getDefaultWidth = function( list_element ) {
+  return list_element.children().outerWidth();
+}
+
+&#x2F;**
  * Retrieves a jQuery list of all invisible&#x2F;hidden elements depending on the filter.
  * @method getInvisibleElements
  * @return {jQuery} List of invisible&#x2F;hidden elements in the list
  *&#x2F;
 FList.prototype.getInvisibleElements = function() {
   return this.list.find(&quot;.hide, .hidden&quot;);
+}
+
+&#x2F;**
+ * Retrieves the maximum height of all child elements.  This is calculated by
+ * looping through all elements to compare heights.
+ * @method getMaxElementHeight
+ * @return {Integer} Max height of all elements in the list
+ *&#x2F;
+FList.prototype.getMaxElementHeight = function() {
+  return Math.max.apply(Math, this.list.find(&#x27;li&#x27;).map(function(){ return $(this).height(); }).get());
+}
+
+&#x2F;**
+ * Retrieves the maximum width of all child elements.  This is calculated by
+ * looping through all elements to compare widths.
+ * @method getMaxElementWidth
+ * @return {Integer} Max width of all elements in the list
+ *&#x2F;
+FList.prototype.getMaxElementWidth = function() {
+  return Math.max.apply(Math, this.list.find(&#x27;li&#x27;).map(function(){ return $(this).width(); }).get());
 }
 
 &#x2F;**
@@ -207,21 +238,130 @@ FList.prototype.setAnimDelay = function( dt ) {
 }
 
 &#x2F;**
+ * Generates a function to hide a list element by sliding it to the left
+ * for use with the FList.hide function.
+ * @method hideLeft
+ * @return {function} A function that takes a jQuery list element and
+ *         animates it by sliding it to the left and decreasing its 
+ *         height to hide it from view.  
+ *&#x2F;
+FList.prototype.hideLeft = function() {
+  return function(element) {
+    element.animate({
+      paddingLeft : -this.list.width(),
+      opacity : 0.0
+    },
+    250 );
+    element.animate({maxHeight : &quot;0px&quot;}, 100 );
+  };
+}
+
+&#x2F;**
+ * Generates a function to hide a list element by sliding it to the right
+ * for use with the FList.hide function.
+ * @method hideRight
+ * @return {function} A function that takes a jQuery list element and 
+ *         animates it by sliding it to the right and decreasing its 
+ *         height to hide it from view.
+ *&#x2F;
+FList.prototype.hideRight = function() {
+  return function(element) {
+    element.animate({ 
+      paddingLeft : this.list.width(),
+      opacity : 0.0
+    },
+    250 );
+    element.animate({maxHeight : &quot;0px&quot;}, 100 );
+  };
+}
+
+&#x2F;**
+ * Generates a function to hide a list element by imitating jQuery&#x27;s
+ * slideUp function, for use with the FList.hide function.
+ * @method hideSlide
+ * @return {function} A function that takes a jQuery list element and
+ *         animates it by sliding it up like jQuery&#x27;s slideUp function.
+ *&#x2F;
+FList.prototype.hideSlide = function() {
+  return function( element ) {
+    element.animate({height : &quot;0px&quot; }, 150);
+  }
+}
+
+&#x2F;**
+ * Generates a function to show a list element by sliding it from the left
+ * for use with the FList.hide function.
+ * @method showLeft
+ * @return {function} A function that takes a jQuery list element and
+ *         animates it by increasing its height and sliding it from the
+ *         left.
+ *&#x2F;
+FList.prototype.showLeft = function() {
+  return function(element) {
+    element.css({
+      paddingLeft : -this.list.width(),
+      opacity : 0.0
+    });
+    element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
+    element.animate({
+      paddingLeft : &quot;0px&quot;,
+      opacity : 1.0
+    }, 
+    250 );
+  };
+}
+
+&#x2F;**
+ * Generates a function to show a list element by sliding it from the right
+ * for use with the FList.show function.
+ * @method showRight
+ * @return {function} A function that takes a jQuery list element and 
+ *         animates it by increasing its height and sliding it from the 
+ *         right.
+ *&#x2F;
+FList.prototype.showRight = function() {
+  return function(element) {
+    element.css({
+      paddingLeft : this.list.width(),
+      opacity : 0.0
+    });
+    element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
+    element.animate({ 
+      paddingLeft : &quot;0px&quot;,
+      opacity : 1.0
+    },
+    250 );
+  };
+}
+
+&#x2F;**
+ * Generates a function to show a list element by imitating jQuery&#x27;s
+ * slideDown function, for use with the FList.show function.
+ * @method showSlide
+ * @return {function} A function that takes a jQuery list element and
+ *         animates it by imitating jQuery&#x27;s slideDown function.
+ *&#x2F;
+FList.prototype.showSlide = function() {
+  var flist_this = this;
+  return function(element) {
+    element.css({
+      paddingLeft : &quot;0px&quot;,
+      height : &quot;0px&quot;,
+      opacity : 1.0
+    });
+    element.animate({ height : flist_this.getDefaultHeight(element) }, 150 );
+  }
+}
+
+
+&#x2F;**
  * Hides a given jQuery element of the filter list.  Change this function to 
  * change animation behavior.  The replacing function must accept one 
  * parameter, which is the jQuery list element to hide.
  * @method hide
  * @param element {jQuery} List element to show
  *&#x2F;
-FList.prototype.hide = function( element ) {
-  var left_pos = element.closest(&quot;li&quot;).parent().parent().width();
-  element.animate({ 
-    paddingLeft : left_pos,
-    opacity : 0.0
-  },
-  250 );
-  element.animate({maxHeight : &quot;0px&quot;}, 100 );
-}
+FList.prototype.hide = FList.prototype.hideRight();
 
 &#x2F;**
  * Shows a given jQuery element of the filter list.  Change this function to 
@@ -230,14 +370,7 @@ FList.prototype.hide = function( element ) {
  * @method show
  * @param element {jQuery} List element to show
  *&#x2F;
-FList.prototype.show = function( element ) {
-  element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
-  element.animate({ 
-    paddingLeft : &quot;0px&quot;,
-    opacity : 1.0
-  },
-  250 );
-}
+FList.prototype.show = FList.prototype.showRight();
 
 &#x2F;**
  * Create a function to update an element; hide an element if it should be 
