@@ -150,13 +150,31 @@ FList.prototype.setAnimDelay = function( dt ) {
 }
 
 /**
+ * Generates a function to hide a list element by sliding it to the left
+ * for use with the FList.hide function.
+ * @method hideLeft
+ * @return {function} A function that takes a jQuery list element and
+ *         animates it by sliding it to the left and decreasing its 
+ *         height to hide it from view.  
+ */
+FList.prototype.hideLeft = function() {
+  return function(element) {
+    element.animate({
+      paddingLeft : -this.list.width(),
+      opacity : 0.0
+    },
+    250 );
+    element.animate({maxHeight : "0px"}, 100 );
+  };
+}
+
+/**
  * Generates a function to hide a list element by sliding it to the right
  * for use with the FList.hide function.
  * @method hideRight
  * @return {function} A function that takes a jQuery list element and 
  *         animates it by sliding it to the right and decreasing its 
- *         height to hide it from view.  For use with the corresponding 
- *         show function showRight.
+ *         height to hide it from view.
  */
 FList.prototype.hideRight = function() {
   return function(element) {
@@ -166,7 +184,43 @@ FList.prototype.hideRight = function() {
     },
     250 );
     element.animate({maxHeight : "0px"}, 100 );
+  };
+}
+
+/**
+ * Generates a function to hide a list element by imitating jQuery's
+ * slideUp function, for use with the FList.hide function.
+ * @method hideSlide
+ * @return {function} A function that takes a jQuery list element and
+ *         animates it by sliding it up like jQuery's slideUp function.
+ */
+FList.prototype.hideSlide = function() {
+  return function( element ) {
+    element.animate({height : "0px" }, 150);
   }
+}
+
+/**
+ * Generates a function to show a list element by sliding it from the left
+ * for use with the FList.hide function.
+ * @method showLeft
+ * @return {function} A function that takes a jQuery list element and
+ *         animates it by increasing its height and sliding it from the
+ *         left.
+ */
+FList.prototype.showLeft = function() {
+  return function(element) {
+    element.css({
+      paddingLeft : -this.list.width(),
+      opacity : 0.0
+    });
+    element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
+    element.animate({
+      paddingLeft : "0px",
+      opacity : 1.0
+    }, 
+    250 );
+  };
 }
 
 /**
@@ -175,16 +229,39 @@ FList.prototype.hideRight = function() {
  * @method showRight
  * @return {function} A function that takes a jQuery list element and 
  *         animates it by increasing its height and sliding it from the 
- *         right.  For use with the corresponding hide function hideRight.
+ *         right.
  */
 FList.prototype.showRight = function() {
   return function(element) {
+    element.css({
+      paddingLeft : this.list.width(),
+      opacity : 0.0
+    });
     element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
     element.animate({ 
       paddingLeft : "0px",
       opacity : 1.0
     },
     250 );
+  };
+}
+
+/**
+ * Generates a function to show a list element by imitating jQuery's
+ * slideDown function, for use with the FList.show function.
+ * @method showSlide
+ * @return {function} A function that takes a jQuery list element and
+ *         animates it by imitating jQuery's slideDown function.
+ */
+FList.prototype.showSlide = function() {
+  var flist_this = this;
+  return function(element) {
+    element.css({
+      paddingLeft : "0px",
+      height : "0px",
+      opacity : 1.0
+    });
+    element.animate({ height : flist_this.getDefaultHeight(element) }, 150 );
   }
 }
 
