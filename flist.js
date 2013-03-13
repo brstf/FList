@@ -18,6 +18,8 @@ function FList( list ) {
   // Set list element to showing and overflow hidden
   $(list.find("li")).wrapInner("<div />");
   $(list.find("li")).data('FList.show', true).css({"overflow" : "hidden" });
+  this._css = $(list.find("li")).css("*");
+  console.log( this._css );
 }
 
 /* Add a case insensitive contains method to jQuery. */
@@ -150,6 +152,19 @@ FList.prototype.setAnimDelay = function( dt ) {
 }
 
 /**
+ * Generates a function to hide a list element immediately by shrinking
+ * its heigth to 0px, for use with the FList.hide function.
+ * @method hideImmediate
+ * @return {function} A function that takes a jQuery list element and 
+ *         shrinks its height to 0px to hide it from view.
+ */
+FList.prototype.hideImmediate = function() {
+  return function(element) {
+    element.css({ height : "0px " });
+  };
+}
+
+/**
  * Generates a function to hide a list element by sliding it to the left
  * for use with the FList.hide function.
  * @method hideLeft
@@ -197,7 +212,17 @@ FList.prototype.hideRight = function() {
 FList.prototype.hideSlide = function() {
   return function( element ) {
     element.animate({height : "0px" }, 150);
-  }
+  };
+}
+
+/**
+ *
+ */
+FList.prototype.showImmediate = function() {
+  var flist_this = this;
+  return function(element) {
+    element.css({height : flist_this.getDefaultHeight(element) });
+  };
 }
 
 /**
@@ -262,7 +287,7 @@ FList.prototype.showSlide = function() {
       opacity : 1.0
     });
     element.animate({ height : flist_this.getDefaultHeight(element) }, 150 );
-  }
+  };
 }
 
 
@@ -273,7 +298,7 @@ FList.prototype.showSlide = function() {
  * @method hide
  * @param element {jQuery} List element to show
  */
-FList.prototype.hide = FList.prototype.hideRight();
+FList.prototype.hide = FList.prototype.hideImmediate();
 
 /**
  * Shows a given jQuery element of the filter list.  Change this function to 
@@ -282,7 +307,7 @@ FList.prototype.hide = FList.prototype.hideRight();
  * @method show
  * @param element {jQuery} List element to show
  */
-FList.prototype.show = FList.prototype.showRight();
+FList.prototype.show = FList.prototype.showImmediate();
 
 /**
  * Create a function to update an element; hide an element if it should be 
