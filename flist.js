@@ -168,18 +168,25 @@ FList.prototype.hideImmediate = function() {
  * Generates a function to hide a list element by sliding it to the left
  * for use with the FList.hide function.
  * @method hideLeft
+ * @param [xtime=250] {Integer} Time in milliseconds it takes to slide the 
+ *        element to the left
+ * @param [htime=100] {Integer} Time in milliseconds it takes to shrink the 
+ *        height of the element
  * @return {function} A function that takes a jQuery list element and
  *         animates it by sliding it to the left and decreasing its 
  *         height to hide it from view.  
  */
-FList.prototype.hideLeft = function() {
+FList.prototype.hideLeft = function( xtime, htime ) {
+  xtime = typeof xtime !== 'undefined' ? xtime : 250;
+  htime = typeof htime !== 'undefined' ? htime : 100;
+
   return function(element) {
     element.animate({
       paddingLeft : -this.list.width(),
       opacity : 0.0
     },
-    250 );
-    element.animate({maxHeight : "0px"}, 100 );
+    xtime );
+    element.animate({maxHeight : "0px"}, htime );
   };
 }
 
@@ -187,18 +194,25 @@ FList.prototype.hideLeft = function() {
  * Generates a function to hide a list element by sliding it to the right
  * for use with the FList.hide function.
  * @method hideRight
+ * @param [xtime=250] {Integer} Time in milliseconds it takes to slide the 
+ *        element to the right
+ * @param [htime=100] {Integer} Time in milliseconds it takes to shrink the 
+ *        height of the element
  * @return {function} A function that takes a jQuery list element and 
  *         animates it by sliding it to the right and decreasing its 
  *         height to hide it from view.
  */
-FList.prototype.hideRight = function() {
+FList.prototype.hideRight = function( xtime, htime ) {
+  xtime = typeof xtime !== 'undefined' ? xtime : 250;
+  htime = typeof htime !== 'undefined' ? htime : 100;
+
   return function(element) {
     element.animate({ 
       paddingLeft : this.list.width(),
       opacity : 0.0
     },
-    250 );
-    element.animate({maxHeight : "0px"}, 100 );
+    xtime );
+    element.animate({maxHeight : "0px"}, htime );
   };
 }
 
@@ -206,17 +220,25 @@ FList.prototype.hideRight = function() {
  * Generates a function to hide a list element by imitating jQuery's
  * slideUp function, for use with the FList.hide function.
  * @method hideSlide
+ * @param [htime=150] {Integer} Time in milliseconds it takes to shrink
+ *        the height of the element
  * @return {function} A function that takes a jQuery list element and
  *         animates it by sliding it up like jQuery's slideUp function.
  */
-FList.prototype.hideSlide = function() {
+FList.prototype.hideSlide = function( htime ) {
+  htime = typeof htime !== 'undefined' ? htime : 150;
+
   return function( element ) {
-    element.animate({height : "0px" }, 150);
+    element.animate({height : "0px"}, htime);
   };
 }
 
 /**
- *
+ * Generates a function to show a list element immediately by unshrinking
+ * its heigth to its default value, for use with the FList.show function.
+ * @method showImmediate
+ * @return {function} A function that takes a jQuery list element and 
+ *         unshrinks its height to its default value to show the element.
  */
 FList.prototype.showImmediate = function() {
   var flist_this = this;
@@ -229,22 +251,29 @@ FList.prototype.showImmediate = function() {
  * Generates a function to show a list element by sliding it from the left
  * for use with the FList.hide function.
  * @method showLeft
+ * @param [xtime=250] {Integer} Time in milliseconds it takes to slide the
+ *        element from the right
+ * @param [htime=100] {Integer} Time in milliseconds it takes to unshrink
+ *        the height of the element
  * @return {function} A function that takes a jQuery list element and
  *         animates it by increasing its height and sliding it from the
  *         left.
  */
-FList.prototype.showLeft = function() {
+FList.prototype.showLeft = function( xtime, htime ) {
+  xtime = typeof xtime !== 'undefined' ? xtime : 250;
+  htime = typeof htime !== 'undefined' ? htime : 100;
+
   return function(element) {
     element.css({
       paddingLeft : -this.list.width(),
       opacity : 0.0
     });
-    element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
+    element.animate({ maxHeight : this.getDefaultHeight(element) }, htime );
     element.animate({
       paddingLeft : "0px",
       opacity : 1.0
     }, 
-    250 );
+    xtime );
   };
 }
 
@@ -252,22 +281,29 @@ FList.prototype.showLeft = function() {
  * Generates a function to show a list element by sliding it from the right
  * for use with the FList.show function.
  * @method showRight
+ * @param [xtime=250] {Integer} Time in milliseconds it takes to slide the
+ *        element from the left
+ * @param [htime=100] {Integer} Time in milliseconds it takes to unshrink 
+ *        the element
  * @return {function} A function that takes a jQuery list element and 
  *         animates it by increasing its height and sliding it from the 
  *         right.
  */
-FList.prototype.showRight = function() {
+FList.prototype.showRight = function( xtime, htime ) {
+  xtime = typeof xtime !== 'undefined' ? xtime : 250;
+  htime = typeof htime !== 'undefined' ? htime : 100;
+
   return function(element) {
     element.css({
       paddingLeft : this.list.width(),
       opacity : 0.0
     });
-    element.animate({ maxHeight : this.getDefaultHeight(element) }, 100 );
+    element.animate({ maxHeight : this.getDefaultHeight(element) }, htime );
     element.animate({ 
       paddingLeft : "0px",
       opacity : 1.0
     },
-    250 );
+    xtime );
   };
 }
 
@@ -275,18 +311,22 @@ FList.prototype.showRight = function() {
  * Generates a function to show a list element by imitating jQuery's
  * slideDown function, for use with the FList.show function.
  * @method showSlide
+ * @param [htime=150] {Integer} Time in milliseconds it takes to unshrink
+ *        the height of the element
  * @return {function} A function that takes a jQuery list element and
  *         animates it by imitating jQuery's slideDown function.
  */
-FList.prototype.showSlide = function() {
+FList.prototype.showSlide = function( htime ) {
   var flist_this = this;
+  htime = typeof htime !== 'undefined' ? htime : 150;
+
   return function(element) {
     element.css({
       paddingLeft : "0px",
       height : "0px",
       opacity : 1.0
     });
-    element.animate({ height : flist_this.getDefaultHeight(element) }, 150 );
+    element.animate({ height : flist_this.getDefaultHeight(element) }, htime );
   };
 }
 

@@ -40,7 +40,7 @@
     "classitems": [
         {
             "file": "flist.js",
-            "line": 28,
+            "line": 30,
             "description": "Filter the filter list by a given filter string, with animations.",
             "itemtype": "method",
             "name": "filter",
@@ -55,7 +55,7 @@
         },
         {
             "file": "flist.js",
-            "line": 50,
+            "line": 52,
             "description": "Constructs a function to test a DOM element by the filter query.",
             "itemtype": "method",
             "name": "selector",
@@ -79,7 +79,7 @@
         },
         {
             "file": "flist.js",
-            "line": 70,
+            "line": 72,
             "description": "Determines if a given element is positively selected by the filter query.",
             "itemtype": "method",
             "name": "positiveSelector",
@@ -108,7 +108,7 @@
         },
         {
             "file": "flist.js",
-            "line": 82,
+            "line": 84,
             "description": "Gets the default height of an element in the list.",
             "itemtype": "method",
             "name": "getDefaultHeight",
@@ -127,7 +127,7 @@
         },
         {
             "file": "flist.js",
-            "line": 92,
+            "line": 94,
             "description": "Gets the default width of an element in the list.",
             "itemtype": "method",
             "name": "getDefaultWidth",
@@ -146,7 +146,7 @@
         },
         {
             "file": "flist.js",
-            "line": 102,
+            "line": 104,
             "description": "Retrieves a jQuery list of all invisible/hidden elements depending on the filter.",
             "itemtype": "method",
             "name": "getInvisibleElements",
@@ -158,7 +158,7 @@
         },
         {
             "file": "flist.js",
-            "line": 111,
+            "line": 113,
             "description": "Retrieves the maximum height of all child elements.  This is calculated by\nlooping through all elements to compare heights.",
             "itemtype": "method",
             "name": "getMaxElementHeight",
@@ -170,7 +170,7 @@
         },
         {
             "file": "flist.js",
-            "line": 121,
+            "line": 123,
             "description": "Retrieves the maximum width of all child elements.  This is calculated by\nlooping through all elements to compare widths.",
             "itemtype": "method",
             "name": "getMaxElementWidth",
@@ -182,7 +182,7 @@
         },
         {
             "file": "flist.js",
-            "line": 131,
+            "line": 133,
             "description": "Retrieves a jQuery list of all visible elements depending on the filter.",
             "itemtype": "method",
             "name": "getVisibleElements",
@@ -194,7 +194,7 @@
         },
         {
             "file": "flist.js",
-            "line": 140,
+            "line": 142,
             "description": "Function to set the delay (in milliseconds) between animations as elements \nare filtered out of a list.  For example, if this is set to 5 ms, the first \nfiltered out element will immediately start its animation, the second one \nwill start the animation in 5 ms, the third in 10 ms, etc.",
             "itemtype": "method",
             "name": "setAnimDelay",
@@ -209,10 +209,38 @@
         },
         {
             "file": "flist.js",
-            "line": 152,
+            "line": 154,
+            "description": "Generates a function to hide a list element immediately by shrinking\nits heigth to 0px, for use with the FList.hide function.",
+            "itemtype": "method",
+            "name": "hideImmediate",
+            "return": {
+                "description": "A function that takes a jQuery list element and \n        shrinks its height to 0px to hide it from view.",
+                "type": "Function"
+            },
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 167,
             "description": "Generates a function to hide a list element by sliding it to the left\nfor use with the FList.hide function.",
             "itemtype": "method",
             "name": "hideLeft",
+            "params": [
+                {
+                    "name": "xtime",
+                    "description": "Time in milliseconds it takes to slide the \n       element to the left",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "250"
+                },
+                {
+                    "name": "htime",
+                    "description": "Time in milliseconds it takes to shrink the \n       height of the element",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "100"
+                }
+            ],
             "return": {
                 "description": "A function that takes a jQuery list element and\n        animates it by sliding it to the left and decreasing its \n        height to hide it from view.",
                 "type": "Function"
@@ -221,10 +249,26 @@
         },
         {
             "file": "flist.js",
-            "line": 171,
+            "line": 193,
             "description": "Generates a function to hide a list element by sliding it to the right\nfor use with the FList.hide function.",
             "itemtype": "method",
             "name": "hideRight",
+            "params": [
+                {
+                    "name": "xtime",
+                    "description": "Time in milliseconds it takes to slide the \n       element to the right",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "250"
+                },
+                {
+                    "name": "htime",
+                    "description": "Time in milliseconds it takes to shrink the \n       height of the element",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "100"
+                }
+            ],
             "return": {
                 "description": "A function that takes a jQuery list element and \n        animates it by sliding it to the right and decreasing its \n        height to hide it from view.",
                 "type": "Function"
@@ -233,10 +277,19 @@
         },
         {
             "file": "flist.js",
-            "line": 190,
+            "line": 219,
             "description": "Generates a function to hide a list element by imitating jQuery's\nslideUp function, for use with the FList.hide function.",
             "itemtype": "method",
             "name": "hideSlide",
+            "params": [
+                {
+                    "name": "htime",
+                    "description": "Time in milliseconds it takes to shrink\n       the height of the element",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "150"
+                }
+            ],
             "return": {
                 "description": "A function that takes a jQuery list element and\n        animates it by sliding it up like jQuery's slideUp function.",
                 "type": "Function"
@@ -245,10 +298,38 @@
         },
         {
             "file": "flist.js",
-            "line": 203,
+            "line": 236,
+            "description": "Generates a function to show a list element immediately by unshrinking\nits heigth to its default value, for use with the FList.show function.",
+            "itemtype": "method",
+            "name": "showImmediate",
+            "return": {
+                "description": "A function that takes a jQuery list element and \n        unshrinks its height to its default value to show the element.",
+                "type": "Function"
+            },
+            "class": "FList"
+        },
+        {
+            "file": "flist.js",
+            "line": 250,
             "description": "Generates a function to show a list element by sliding it from the left\nfor use with the FList.hide function.",
             "itemtype": "method",
             "name": "showLeft",
+            "params": [
+                {
+                    "name": "xtime",
+                    "description": "Time in milliseconds it takes to slide the\n       element from the right",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "250"
+                },
+                {
+                    "name": "htime",
+                    "description": "Time in milliseconds it takes to unshrink\n       the height of the element",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "100"
+                }
+            ],
             "return": {
                 "description": "A function that takes a jQuery list element and\n        animates it by increasing its height and sliding it from the\n        left.",
                 "type": "Function"
@@ -257,10 +338,26 @@
         },
         {
             "file": "flist.js",
-            "line": 226,
+            "line": 280,
             "description": "Generates a function to show a list element by sliding it from the right\nfor use with the FList.show function.",
             "itemtype": "method",
             "name": "showRight",
+            "params": [
+                {
+                    "name": "xtime",
+                    "description": "Time in milliseconds it takes to slide the\n       element from the left",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "250"
+                },
+                {
+                    "name": "htime",
+                    "description": "Time in milliseconds it takes to unshrink \n       the element",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "100"
+                }
+            ],
             "return": {
                 "description": "A function that takes a jQuery list element and \n        animates it by increasing its height and sliding it from the \n        right.",
                 "type": "Function"
@@ -269,10 +366,19 @@
         },
         {
             "file": "flist.js",
-            "line": 249,
+            "line": 310,
             "description": "Generates a function to show a list element by imitating jQuery's\nslideDown function, for use with the FList.show function.",
             "itemtype": "method",
             "name": "showSlide",
+            "params": [
+                {
+                    "name": "htime",
+                    "description": "Time in milliseconds it takes to unshrink\n       the height of the element",
+                    "type": "Integer",
+                    "optional": true,
+                    "optdefault": "150"
+                }
+            ],
             "return": {
                 "description": "A function that takes a jQuery list element and\n        animates it by imitating jQuery's slideDown function.",
                 "type": "Function"
@@ -281,7 +387,7 @@
         },
         {
             "file": "flist.js",
-            "line": 269,
+            "line": 334,
             "description": "Hides a given jQuery element of the filter list.  Change this function to \nchange animation behavior.  The replacing function must accept one \nparameter, which is the jQuery list element to hide.",
             "itemtype": "method",
             "name": "hide",
@@ -296,7 +402,7 @@
         },
         {
             "file": "flist.js",
-            "line": 278,
+            "line": 343,
             "description": "Shows a given jQuery element of the filter list.  Change this function to \nchange animation behavior.  The replacing function must accept one \nparameter, which is the jQuery list element to show.",
             "itemtype": "method",
             "name": "show",
@@ -311,7 +417,7 @@
         },
         {
             "file": "flist.js",
-            "line": 287,
+            "line": 352,
             "description": "Create a function to update an element; hide an element if it should be \nhidden, show an element if it should be shown.",
             "itemtype": "method",
             "name": "updateElement",
@@ -330,7 +436,7 @@
         },
         {
             "file": "flist.js",
-            "line": 305,
+            "line": 370,
             "description": "Compounds an update function that shows/hides all elements.  The resulting\nupdate function is a function that calls an update function for each list\nelement in turn to hide/show the element as specified.",
             "itemtype": "method",
             "name": "update",
